@@ -3,5 +3,5 @@
 ## Alunos:
 
 - Felipe Macacari Pierotti
-- Eduardo Achar
+- Eduardo Achar (Dudu logo ele)
 - Rodrigo Schwartz
