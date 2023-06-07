@@ -1,10 +1,12 @@
 import pygame
 
 ORDEM = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
-NAIPES = ['C', 'E', 'O', 'P']
+NAIPES = ['H', 'S', 'D', 'C']
 
-altura_tela = 600
-largura_tela = 800
+altura_tela = 700
+largura_tela = 900
+
+DIMENSAO_CARTA = (100, 150)
 
 plano_de_fundo = (34,139,34)
 grey = (220,220,220)

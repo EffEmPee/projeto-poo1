@@ -6,7 +6,7 @@ class Baralho:
     self.cartas = []
     for n in NAIPES:
       for o in ORDEM:
-        self.cartas.append((n, o)) # ['A', 'C']
+        self.cartas.append((o, n)) # ['A', 'C']
 
   def embaralhar(self):
     random.shuffle(self.cartas)

@@ -5,8 +5,9 @@ class Mao():
     self.imagens = []
 
   def adicionar(self, carta):
+    print(carta)
     self.cartas.append(carta)
-    self.imagens.append("".join(carta[0], carta[1]))
+    self.imagens.append("".join((carta[0], carta[1])))
   
   def calcularMao(self):
     ordem_carta = [carta[0] for carta in self.cartas]

@@ -1,11 +1,22 @@
 import pygame as pygame
 from utils import *
+from vinteum import *
 
 pygame.init()
 
-
 tela = pygame.display.set_mode((largura_tela,altura_tela))
 pygame.display.set_caption("21 do Caneta Azul")
+
+def text_objects(text, font):
+    textSurface = font.render(text, True, black)
+    return textSurface, textSurface.get_rect()
+
+def game_texts(text, x, y):
+    TextSurf, TextRect = text_objects(text, textfont)
+    TextRect.center = (x, y)
+    tela.blit(TextSurf, TextRect)
+
+    pygame.display.update()
 
 def menu_de_jogo():
     tela.fill(green)
@@ -15,7 +26,7 @@ def menu_de_jogo():
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
-                    menu = False
+                    jogar()
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
@@ -30,25 +41,29 @@ def menu_de_jogo():
         tela.blit(texto2, texto2_posicao)
 
 
-def jogo():
+def jogar():
     tela.fill(plano_de_fundo)
     pygame.draw.rect(tela, grey, pygame.Rect(0, 0, 250, 700))
 
-    jogo_rodar = True
+    jogo = VinteUm(tela)
+    
+    game_texts("Banca:", 500, 50)
+    game_texts("Sua mão:", 500, 400)
+    
+    jogo.distribuir()
 
-    while jogo_rodar:
+    while True:
         for event in pygame.event.get():
-            
-
-
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_c:
+                    jogo.comprar()
+                elif event.key == pygame.K_v:
+                    jogo.segurar()
+                elif event.key == pygame.K_q:
+                    menu_de_jogo()
             if event.type == pygame.QUIT:
-                jogo_rodar = False
                 pygame.quit()
                 quit()
         pygame.display.flip()
 
-
 menu_de_jogo()
-jogo()
-pygame.quit()
-quit()
