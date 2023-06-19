@@ -29,20 +29,26 @@ class VinteUm:
     self.tela.blit(convCarta(), (370, 100))
     
     self.tela.blit(convCarta(self.jogador.imagens[0]), (300, 450))
-    self.tela.blit(convCarta(self.banca.imagens[1]), (370, 450))
-    # self.blackjack()
+    self.tela.blit(convCarta(self.jogador.imagens[1]), (370, 450))
   
-  # def checarResultado(self):
-  #   if self.jogador.soma > 21:
-  #     # JOGADOR estourou
-  #   elif self.banca.soma > 21:
-  #     # JOGADOR ganhou
-  #   elif self.banca.soma == self.jogador.soma == 21:
-  #     # EMPATE
-  #   elif self.jogador.soma > self.banca.soma:
-  #     # JOGADOR ganhou
-  #   else:
-  #     # BANCA ganhou      
+  def checarResultado(self):
+    print(self.jogador.soma)
+    if self.jogador.soma > 21:
+      # self.tela.fill(red)
+      print('estourou')
+    elif self.banca.soma > 21:
+      # self.tela.fill(green)
+      print('ganhou')
+    elif self.banca.soma == self.jogador.soma:
+      # self.tela.fill(white)
+      print('empate')
+    elif self.jogador.soma > self.banca.soma:
+      # self.tela.fill(green)
+      print('ganhou 2')
+    else:
+      print('banca')
+      # BANCA ganhou
+      # self.tela.fill(green) 
 
   def comprar(self):
     if not self.segurou:
@@ -54,23 +60,28 @@ class VinteUm:
       
       self.jogador.calcularMao()
 
-    # if self.jogador.soma > 21:
-    #   checarResultado()
+    if self.jogador.soma > 21:
+      self.checarResultado()
 
   def segurar(self):
-    i = 1
+    i = 2
+
+    self.tela.blit(convCarta(self.banca.imagens[1]), (370 ,100))
+    pygame.display.flip()
+    self.banca.calcularMao()
+    pygame.time.wait(2000)
 
     while self.jogador.soma > self.banca.soma < 17:
       self.segurou = True
       self.banca.adicionar(self.baralho.comprar())
 
       self.tela.blit(convCarta(self.banca.imagens[i]), (300 + i*70 ,100))
+      pygame.display.flip()
     
       self.banca.calcularMao()
-      time.sleep(0.5)
+      print('soma banca:', self.banca.soma)
+
+      pygame.time.wait(1500)
       i += 1
 
-    # checarResultado()
-
-
-  
+    self.checarResultado()

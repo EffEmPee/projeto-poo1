@@ -11,7 +11,8 @@ def text_objects(text, font):
     textSurface = font.render(text, True, black)
     return textSurface, textSurface.get_rect()
 
-def game_texts(text, x, y):
+
+def texto(text, x, y):
     TextSurf, TextRect = text_objects(text, textfont)
     TextRect.center = (x, y)
     tela.blit(TextSurf, TextRect)
@@ -32,7 +33,7 @@ def menu_de_jogo():
                 quit()
         pygame.display.flip()
 
-        texto = font.render("Vinte e Um", True, white)
+        texto = font.render("Vinte e Um do Blue Pen", True, white)
         texto_posicao = texto.get_rect(center=(largura_tela//2, altura_tela// 3 - 50))
         tela.blit(texto, texto_posicao)
 
@@ -47,13 +48,15 @@ def jogar():
 
     jogo = VinteUm(tela)
     
-    game_texts("Banca:", 500, 50)
-    game_texts("Sua mão:", 500, 400)
+    texto("Banca:", 500, 50)
+    texto("Sua mãe:", 500, 400)
     
     jogo.distribuir()
 
     while True:
         for event in pygame.event.get():
+            texto(f"soma: {jogo.banca.soma}", 700, 50)
+            texto(f"soma: {jogo.jogador.soma}", 700, 400)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_c:
                     jogo.comprar()

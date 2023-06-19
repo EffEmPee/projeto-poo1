@@ -10,18 +10,24 @@ class Mao():
     self.imagens.append("".join((carta[0], carta[1])))
   
   def calcularMao(self):
+    total = 0
+
     ordem_carta = [carta[0] for carta in self.cartas]
     nao_ases = [carta for carta in ordem_carta if carta != 'A']
     ases = [carta for carta in ordem_carta if carta == 'A']
 
+    print(nao_ases, ases)
+
     for carta in nao_ases:
       if carta in 'JQK':
-        self.soma += 10
+        total += 10
       else:
-        self.soma += int(carta)
+        total += int(carta)
     
     for carta in ases:
-      if self.soma <= 10:
-        self.soma += 11
+      if total <= 10:
+        total += 11
       else:
-        self.soma += 1  
+        total += 1
+
+    self.soma = total 
