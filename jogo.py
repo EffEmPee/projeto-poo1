@@ -4,6 +4,9 @@ from vinteum import *
 
 pygame.init()
 
+mixer = pygame.mixer
+mixer.init()
+
 tela = pygame.display.set_mode((largura_tela,altura_tela))
 pygame.display.set_caption("21 do Caneta Azul")
 
@@ -22,6 +25,10 @@ def texto(text, x, y):
 def menu_de_jogo():
     tela.fill(green)
 
+    mixer.music.stop()
+    mixer.music.load("audios/inicial.mp3")
+    mixer.music.play()
+
     menu = True
     while menu:
         for event in pygame.event.get():
@@ -36,6 +43,9 @@ def menu_de_jogo():
         pygame.display.flip()
 
 def jogar():
+    mixer.music.stop()
+    
+
     tela.fill(plano_de_fundo)
     pygame.draw.rect(tela, grey, pygame.Rect(0, 0, 250, 700))
     tela.blit(imagem_tela_jogo, (0, 0))
@@ -53,9 +63,9 @@ def jogar():
     while True:
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_c:
+                if event.key == pygame.K_c and not jogo.segurou:
                     jogo.comprar()
-                elif event.key == pygame.K_v:
+                elif event.key == pygame.K_v and not jogo.segurou:
                     jogo.segurar()
                 elif event.key == pygame.K_q:
                     menu_de_jogo()

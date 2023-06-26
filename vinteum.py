@@ -3,6 +3,9 @@ from baralho import *
 from mao import *
 import time
 
+mixer = pygame.mixer
+mixer.init()
+
 def convCarta(carta="back"):
   image = pygame.image.load('images/' + carta + '.png').convert()
 
@@ -38,28 +41,46 @@ class VinteUm:
     if self.jogador.soma > 21:
       self.tela.fill(black)
       self.tela.blit(imagem_jogador_perdeu, (0, 0))
+      
+      mixer.music.load("audios/perdeu.mp3")
+
       print('jogador estourou')
       print('jogador perdeu')
     elif self.banca.soma > 21:
       self.tela.fill(black)
       self.tela.blit(imagem_jogador_ganhou, (0, 0))
+
+      mixer.music.load("audios/ganhou.mp3")
+
       print('banca estourou')
       print('jogador ganhou')
     elif self.banca.soma == self.jogador.soma:
       self.tela.fill(black)
       self.tela.blit(imagem_jogador_empatou, (0, 0))
+
+      mixer.music.load("audios/empatou.mp3")
+
       print('pontuação se igualou')
       print('jogador empatou')
     elif self.jogador.soma > self.banca.soma:
       self.tela.fill(black)
       self.tela.blit(imagem_jogador_ganhou, (0, 0))
+
+      mixer.music.load("audios/ganhou.mp3")
+
       print('jogador fez maior pontuação')
       print('jogador ganhou')
     else:
       self.tela.fill(black)
       self.tela.blit(imagem_jogador_perdeu, (0, 0))
+      
+      mixer.music.load("audios/perdeu.mp3")
+
       print('banca fez maior pontução')
       print('jogador perdeu')
+
+    mixer.music.play()
+
        
 
   def comprar(self):
