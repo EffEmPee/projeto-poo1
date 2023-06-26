@@ -31,32 +31,27 @@ def menu_de_jogo():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
+
+        tela.blit(imagem_menu_principal, (0, 0))
         pygame.display.flip()
-
-        texto = font.render("Vinte e Um do Blue Pen", True, white)
-        texto_posicao = texto.get_rect(center=(largura_tela//2, altura_tela// 3 - 50))
-        tela.blit(texto, texto_posicao)
-
-        texto2 = legenda.render("Pressione ESPAÇO para jogar", True, white)
-        texto2_posicao = texto.get_rect(center=(largura_tela//2, altura_tela//3))
-        tela.blit(texto2, texto2_posicao)
-
 
 def jogar():
     tela.fill(plano_de_fundo)
     pygame.draw.rect(tela, grey, pygame.Rect(0, 0, 250, 700))
+    tela.blit(imagem_tela_jogo, (0, 0))
+    texto("Instruções:", 100, 440)
+    texto("Comprar: C", 100, 520)
+    texto("Segurar: V", 100, 600)
 
     jogo = VinteUm(tela)
     
     texto("Banca:", 500, 50)
-    texto("Sua mãe:", 500, 400)
+    texto("Sua mão:", 500, 400)
     
     jogo.distribuir()
 
     while True:
         for event in pygame.event.get():
-            texto(f"soma: {jogo.banca.soma}", 700, 50)
-            texto(f"soma: {jogo.jogador.soma}", 700, 400)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_c:
                     jogo.comprar()
@@ -67,6 +62,7 @@ def jogar():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
+            # texto(f"soma: {jogo.banca.soma}", 700, 50)
+            # texto(f"soma: {jogo.jogador.soma}", 700, 400)
         pygame.display.flip()
-
 menu_de_jogo()

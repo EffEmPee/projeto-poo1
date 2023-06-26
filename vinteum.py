@@ -15,6 +15,7 @@ class VinteUm:
     self.banca = Mao()
     self.tela = tela
     self.segurou = False
+    self.jogando = True
 
     self.baralho.embaralhar()
 
@@ -32,23 +33,34 @@ class VinteUm:
     self.tela.blit(convCarta(self.jogador.imagens[1]), (370, 450))
   
   def checarResultado(self):
-    print(self.jogador.soma)
+
+    pygame.time.delay(1000)
     if self.jogador.soma > 21:
-      # self.tela.fill(red)
-      print('estourou')
+      self.tela.fill(black)
+      self.tela.blit(imagem_jogador_perdeu, (0, 0))
+      print('jogador estourou')
+      print('jogador perdeu')
     elif self.banca.soma > 21:
-      # self.tela.fill(green)
-      print('ganhou')
+      self.tela.fill(black)
+      self.tela.blit(imagem_jogador_ganhou, (0, 0))
+      print('banca estourou')
+      print('jogador ganhou')
     elif self.banca.soma == self.jogador.soma:
-      # self.tela.fill(white)
-      print('empate')
+      self.tela.fill(black)
+      self.tela.blit(imagem_jogador_empatou, (0, 0))
+      print('pontuação se igualou')
+      print('jogador empatou')
     elif self.jogador.soma > self.banca.soma:
-      # self.tela.fill(green)
-      print('ganhou 2')
+      self.tela.fill(black)
+      self.tela.blit(imagem_jogador_ganhou, (0, 0))
+      print('jogador fez maior pontuação')
+      print('jogador ganhou')
     else:
-      print('banca')
-      # BANCA ganhou
-      # self.tela.fill(green) 
+      self.tela.fill(black)
+      self.tela.blit(imagem_jogador_perdeu, (0, 0))
+      print('banca fez maior pontução')
+      print('jogador perdeu')
+       
 
   def comprar(self):
     if not self.segurou:
@@ -59,11 +71,13 @@ class VinteUm:
       self.tela.blit(convCarta(self.jogador.imagens[i]), (300 + i*70 ,450))
       
       self.jogador.calcularMao()
+      pygame.display.flip()
 
     if self.jogador.soma > 21:
       self.checarResultado()
 
   def segurar(self):
+    self.segurou = True
     i = 2
 
     self.tela.blit(convCarta(self.banca.imagens[1]), (370 ,100))
@@ -72,15 +86,16 @@ class VinteUm:
     pygame.time.wait(2000)
 
     while self.jogador.soma > self.banca.soma < 17:
-      self.segurou = True
+      
       self.banca.adicionar(self.baralho.comprar())
 
       self.tela.blit(convCarta(self.banca.imagens[i]), (300 + i*70 ,100))
-      pygame.display.flip()
     
       self.banca.calcularMao()
+      # texto(f"soma: {jogo.banca.soma}", 700, 50)
       print('soma banca:', self.banca.soma)
 
+      pygame.display.flip()
       pygame.time.wait(1500)
       i += 1
 
