@@ -37,51 +37,27 @@ class VinteUm:
   
   def checarResultado(self):
 
+    def Final(image, audio, saida_terminal):
+      self.tela.blit(image, (0, 0))
+      mixer.music.load(audio)
+      print(saida_terminal)
+
     pygame.time.delay(1000)
+    self.tela.fill(black)
+
     if self.jogador.soma > 21:
-      self.tela.fill(black)
-      self.tela.blit(imagem_jogador_perdeu, (0, 0))
-      
-      mixer.music.load("audios/perdeu.mp3")
+      Final(imagem_jogador_perdeu, "audios/perdeu.mp3", "jogador perdeu")
 
-      print('jogador estourou')
-      print('jogador perdeu')
-    elif self.banca.soma > 21:
-      self.tela.fill(black)
-      self.tela.blit(imagem_jogador_ganhou, (0, 0))
+    elif self.banca.soma > 21 or self.jogador.soma > self.banca.soma:
+      Final(imagem_jogador_ganhou, "audios/ganhou.mp3", "jogador ganhou")
 
-      mixer.music.load("audios/ganhou.mp3")
-
-      print('banca estourou')
-      print('jogador ganhou')
     elif self.banca.soma == self.jogador.soma:
-      self.tela.fill(black)
-      self.tela.blit(imagem_jogador_empatou, (0, 0))
+      Final(imagem_jogador_empatou, "audios/empatou.mp3, jogador empatou")
 
-      mixer.music.load("audios/empatou.mp3")
-
-      print('pontuação se igualou')
-      print('jogador empatou')
-    elif self.jogador.soma > self.banca.soma:
-      self.tela.fill(black)
-      self.tela.blit(imagem_jogador_ganhou, (0, 0))
-
-      mixer.music.load("audios/ganhou.mp3")
-
-      print('jogador fez maior pontuação')
-      print('jogador ganhou')
     else:
-      self.tela.fill(black)
-      self.tela.blit(imagem_jogador_perdeu, (0, 0))
-      
-      mixer.music.load("audios/perdeu.mp3")
-
-      print('banca fez maior pontução')
-      print('jogador perdeu')
+      Final(imagem_jogador_perdeu, "audios/perdeu.mp3", "jogador perdeu")
 
     mixer.music.play()
-
-       
 
   def comprar(self):
     if not self.segurou:
